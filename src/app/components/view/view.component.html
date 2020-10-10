@@ -1,0 +1,55 @@
+<mat-card class="card mat-elevation-z5" *ngIf="totalAplications == 0">
+    <mat-card-header>
+        <mat-card-title>Applications</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <strong style="color: #DC3545;">{{erroMsg}}</strong>
+    </mat-card-content>
+</mat-card>
+<mat-table [dataSource]="applications" class="mat-elevation-z8 aplication-table" *ngIf="totalAplications > 0">
+    <!-- Position Column -->
+    <ng-container matColumnDef="username">
+        <mat-header-cell *matHeaderCellDef> username </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.username}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef> email </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef> address </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.address}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="city">
+        <mat-header-cell *matHeaderCellDef> city </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.city}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="state">
+        <mat-header-cell *matHeaderCellDef> state </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.state}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="country">
+        <mat-header-cell *matHeaderCellDef> country </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.country}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="experience">
+        <mat-header-cell *matHeaderCellDef> experience </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.experience}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="salary">
+        <mat-header-cell *matHeaderCellDef> salary </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.salary}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<mat-paginator class="mat-elevation-z8 aplication-table" *ngIf="totalAplications > 0" [length]="totalAplications" [pageIndex]="currentPage" [pageSize]="10" (page)="pageChanged($event)">
+</mat-paginator>

@@ -1,0 +1,20 @@
+<div class="loader" *ngIf="intermediate.loadingAnimation">
+    <div class="loading-animation">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+</div>
+<div class="header" *ngIf="!intermediate.loadingAnimation">
+    <div class="title">
+        <h1>Job Portal</h1>
+    </div>
+    <div class="navigations">
+        <a [routerLink]="['/upload']" routerLinkActive="active">Upload Applications</a>
+        <a [routerLink]="['/view']" routerLinkActive="active">View Applications</a>
+    </div>
+</div>
+<div class="content" *ngIf="!intermediate.loadingAnimation">
+    <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,53 @@
+.upload-card {
+    max-width: 45%;
+    margin: 50px auto;
+}
+
+.upload-status-card {
+    width: 80%;
+    margin: 50px auto;
+}
+
+.upload-status-card .header {
+    display: flex;
+    flex-direction: row;
+}
+
+.upload-status-card .header .text {
+    width: 85%;
+}
+
+.upload-card .upload-card-content {
+    width: 100%;
+    justify-content: center;
+}
+
+.upload-card .upload-card-content .upload-center {
+    display: flex;
+    flex-direction: row;
+}
+
+.upload-card .upload-card-content .upload-center .spinner {
+    margin: 0 10px;
+}
+
+.upload-card .upload-card-content .error-msg {
+    width: 100%;
+    text-align: center;
+    color: #DC3545;
+}
+
+.upload-card .upload-card-content button {
+    margin: 0 10px;
+}
+
+@media (max-width: 480px) {
+    .upload-card {
+        max-width: 85%;
+        margin: 25px auto;
+    }
+    .upload-status-card {
+        width: 95%;
+        margin: 25px auto;
+    }
+}

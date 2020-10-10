@@ -1,0 +1,84 @@
+<mat-card class="upload-card mat-elevation-z8" *ngIf="!isUploaded">
+    <mat-card-header>
+        <mat-card-title>Upload File</mat-card-title>
+        <mat-card-subtitle>Upload an Excel file with the contents given below</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="upload-card-content">
+        <div class="note">
+            <p>Your excel must contain the columns with following header names header names</p>
+            <ul>
+                <li>username - which must be string</li>
+                <li>email - which must a valid email id and unique</li>
+                <li>address - which must be string</li>
+                <li>city - which must be string</li>
+                <li>state - which must be string</li>
+                <li>country - which must be string</li>
+                <li>experience - which must be Number in years</li>
+                <li>salary - which must be Number</li>
+            </ul>
+            <p style="color: #DC3545;">A row can be ignored, if it doesn't match the requirements specified above.</p>
+        </div>
+        <div class="upload-center">
+            <button mat-stroked-button color="primary" (click)="openInput()" *ngIf="!isUploading">Choode File</button>
+            <mat-spinner *ngIf="isUploading" [diameter]="40" class="spinner"></mat-spinner>
+            <input type="file" accept=".xls,.xlsx,.csv" id="input-button" hidden (click)="$event.target.value = null" (change)="fileChange($event.target.files)" />
+            <p *ngIf="file">{{file.name}}</p>
+        </div>
+        <div class="error-msg">
+            <strong *ngIf="errorMsg">{{errorMsg}}</strong>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" [disabled]="!file" style="width: 100%;" (click)="upload()">upload</button>
+    </mat-card-actions>
+</mat-card>
+<mat-card class="mat-elevation-z8 upload-status-card" *ngIf="isUploaded">
+    <mat-card-header class="header">
+        <div class="text">
+            <mat-card-title>Upload Status</mat-card-title>
+            <mat-card-subtitle> <span style="color: #343A40;"> Total: {{errors.length}} </span>, <span style="color: #28A745;"> Success: {{success}} </span>, <span style="color: #DC3545;"> Failed: {{errors.length - success}} </span></mat-card-subtitle>
+        </div>
+        <div class="button">
+            <button mat-raised-button color="primary" (click)="uploadAgain()">Upload</button>
+        </div>
+    </mat-card-header>
+    <mat-table [dataSource]="errors" class="mat-elevation-z5">
+
+        <ng-container matColumnDef="S.no.">
+            <mat-header-cell *matHeaderCellDef> S.no. </mat-header-cell>
+            <mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Row Index">
+            <mat-header-cell *matHeaderCellDef> Row Index </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.id + 2}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Errors">
+            <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <p *ngIf="element.errors.length == 0" style="color: #28A745;">Success</p>
+                <ul *ngIf="element.errors.length > 0" style="color: #DC3545; margin: 0; padding: 0;">
+                    <li *ngFor="let err of element.errors">
+                        <span *ngIf="err=='MAIL_REQ'">Mail id not specified,</span>
+                        <span *ngIf="err=='DUP_MAIL'">Mail id already specified above,</span>
+                        <span *ngIf="err=='INVALID_MAIL'">Invalid Mail id,</span>
+                        <span *ngIf="err=='MAIL_EXIST'">Mail id already exists,</span>
+                        <span *ngIf="err=='NAME_REQ'">Username not specified,</span>
+                        <span *ngIf="err=='CITY_REQ'">City not specified,</span>
+                        <span *ngIf="err=='STATE_REQ'">State not specified,</span>
+                        <span *ngIf="err=='COUNTRY_REQ'">Country not specified,</span>
+                        <span *ngIf="err=='EXP_REQ'">Experience not specified,</span>
+                        <span *ngIf="err=='SALARY_REQ'">Salary not specified,</span>
+                        <span *ngIf="err=='EXP_INVALID'">Experience is not valid. it must be Number,</span>
+                        <span *ngIf="err=='SALARY_INVALID'">Salary is not valid. it must be Number</span>
+                    </li>
+                </ul>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+</mat-card>

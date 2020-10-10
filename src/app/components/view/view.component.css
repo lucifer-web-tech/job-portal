@@ -1,0 +1,30 @@
+.card {
+    width: 45%;
+    margin: 50px auto;
+}
+
+.aplication-table {
+    width: 95%;
+    margin: 10px auto;
+}
+
+.truncate-cell {
+    max-width: 60px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+mat-cell {
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: 200px;
+    word-break: break-word;
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: 85%;
+        margin: 25px auto;
+    }
+}

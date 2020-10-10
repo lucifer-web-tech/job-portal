@@ -1,0 +1,134 @@
+.loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    z-index: 999999;
+    background-color: #76CDDA;
+}
+
+.loading-animation {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: flex;
+    flex-direction: row;
+    transform: translate(-50%, -50%);
+}
+
+.loading-animation .circle {
+    position: relative;
+    margin-right: 20px;
+    width: 0px;
+    height: 0px;
+    background-color: #1A2128;
+    border-radius: 50%;
+    animation-name: animate-circles;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+    animation-duration: 1s;
+}
+
+.loading-animation .circle:nth-child(2) {
+    animation-delay: 0.25s
+}
+
+.loading-animation .circle:nth-child(3) {
+    animation-delay: 0.50s
+}
+
+.loading-animation .circle:nth-child(4) {
+    animation-delay: 0.75s
+}
+
+@keyframes animate-circles {
+    from {
+        width: 0px;
+        height: 0px;
+    }
+    to {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+.header {
+    background-color: #76CDDA;
+    position: fixed;
+    width: 100%;
+    height: 70px;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    z-index: 99999;
+}
+
+.header .title {
+    width: 50%;
+    padding: 0px 10px;
+}
+
+.header .title h1 {
+    color: #1A2128;
+}
+
+.header .navigations {
+    width: 50%;
+}
+
+.header .navigations a {
+    color: #fff;
+    position: relative;
+    font-size: 1.5rem;
+    font-weight: lighter;
+    text-decoration: none;
+    float: right;
+    margin: 20px 10px;
+}
+
+.header .navigations a.active {
+    color: #1A2128;
+    text-decoration: underline;
+}
+
+.content {
+    padding-top: 70px;
+}
+
+@media (max-width: 480px) {
+    .header {
+        display: flex;
+        flex-direction: column;
+    }
+    .header .title {
+        width: 100%;
+        padding: 0;
+        text-align: center;
+    }
+    .header .title h1 {
+        margin: 0.25em;
+    }
+    .header .navigations {
+        width: 100%;
+        background-color: #1A2128;
+        display: flex;
+    }
+    .header .navigations a {
+        font-size: 1rem;
+        width: 50%;
+        text-align: center;
+        color: #fff;
+        text-decoration: none;
+    }
+    .header .navigations a.active {
+        color: #76CDDA;
+        text-decoration: underline;
+    }
+    .content {
+        padding-top: 100px;
+    }
+}
