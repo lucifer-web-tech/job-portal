@@ -8,7 +8,9 @@ export class IntermediateService {
 
   loadingAnimation: boolean;
 
-  constructor(private web: WebRequestService) { }
+  constructor(private web: WebRequestService) {
+    this.loadingAnimation = false;
+  }
 
   getApplications(pagenum) {
     return this.web.get(`applications/${pagenum}`);

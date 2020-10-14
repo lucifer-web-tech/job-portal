@@ -65,13 +65,19 @@
                         <span *ngIf="err=='INVALID_MAIL'">Invalid Mail id,</span>
                         <span *ngIf="err=='MAIL_EXIST'">Mail id already exists,</span>
                         <span *ngIf="err=='NAME_REQ'">Username not specified,</span>
+                        <span *ngIf="err=='ADDR_REQ'">Address not specified,</span>
                         <span *ngIf="err=='CITY_REQ'">City not specified,</span>
                         <span *ngIf="err=='STATE_REQ'">State not specified,</span>
                         <span *ngIf="err=='COUNTRY_REQ'">Country not specified,</span>
+                        <span *ngIf="err=='NAME_INVALID'">Username Invalid,</span>
+                        <span *ngIf="err=='ADDR_INVALID'">Address Invalid,</span>
+                        <span *ngIf="err=='CITY_INVALID'">City Invalid,</span>
+                        <span *ngIf="err=='STATE_INVALID'">State Invalid,</span>
+                        <span *ngIf="err=='COUNTRY_INVALID'">Country Invalid,</span>
                         <span *ngIf="err=='EXP_REQ'">Experience not specified,</span>
                         <span *ngIf="err=='SALARY_REQ'">Salary not specified,</span>
-                        <span *ngIf="err=='EXP_INVALID'">Experience is not valid. it must be Number,</span>
-                        <span *ngIf="err=='SALARY_INVALID'">Salary is not valid. it must be Number</span>
+                        <span *ngIf="err=='EXP_INVALID'">Experience is Invalid. it must be Number,</span>
+                        <span *ngIf="err=='SALARY_INVALID'">Salary is Invalid. it must be Number</span>
                     </li>
                 </ul>
             </mat-cell>

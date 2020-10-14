@@ -1,4 +1,4 @@
-<mat-card class="card mat-elevation-z5" *ngIf="totalAplications == 0">
+<mat-card class="card mat-elevation-z5" *ngIf="totalAplications == 0 && !intermediate.loadingAnimation">
     <mat-card-header>
         <mat-card-title>Applications</mat-card-title>
     </mat-card-header>
@@ -6,7 +6,7 @@
         <strong style="color: #DC3545;">{{erroMsg}}</strong>
     </mat-card-content>
 </mat-card>
-<mat-table [dataSource]="applications" class="mat-elevation-z8 aplication-table" *ngIf="totalAplications > 0">
+<mat-table [dataSource]="applications" class="mat-elevation-z8 aplication-table" *ngIf="totalAplications > 0 && !intermediate.loadingAnimation">
     <!-- Position Column -->
     <ng-container matColumnDef="username">
         <mat-header-cell *matHeaderCellDef> username </mat-header-cell>

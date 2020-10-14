@@ -6,7 +6,7 @@
         <div class="circle"></div>
     </div>
 </div>
-<div class="header" *ngIf="!intermediate.loadingAnimation">
+<div class="header">
     <div class="title">
         <h1>Job Portal</h1>
     </div>
@@ -15,6 +15,6 @@
         <a [routerLink]="['/view']" routerLinkActive="active">View Applications</a>
     </div>
 </div>
-<div class="content" *ngIf="!intermediate.loadingAnimation">
+<div class="content">
     <router-outlet></router-outlet>
 </div>

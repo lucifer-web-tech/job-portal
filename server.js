@@ -25,19 +25,39 @@ class Application {
     }
     validateApplicaton() {
         let error = [];
-        if (this.applic.username && String(this.applic.username).trim().length == 0) {
+        if (this.applic.username && String(this.applic.username).trim().length > 0) {
+            if (String(this.applic.username).trim().replace(/[^a-zA-Z ]/g, "").length == 0) {
+                error.push('NAME_INVALID');
+            }
+        } else {
             error.push('NAME_REQ');
         }
-        if (this.applic.address && String(this.applic.address).trim().length == 0) {
+        if (this.applic.address && String(this.applic.address).trim().length > 0) {
+            if (String(this.applic.address).trim().replace(/[^a-zA-Z ]/g, "").length == 0) {
+                error.push('ADDR_INVALID');
+            }
+        } else {
             error.push('ADDR_REQ');
         }
-        if (this.applic.city && String(this.applic.city).trim().length == 0) {
+        if (this.applic.city && String(this.applic.city).trim().length > 0) {
+            if (String(this.applic.city).trim().replace(/[^a-zA-Z ]/g, "").length == 0) {
+                error.push('CITY_INVALID');
+            }
+        } else {
             error.push('CITY_REQ');
         }
-        if (this.applic.state && String(this.applic.state).trim().length == 0) {
+        if (this.applic.state && String(this.applic.state).trim().length > 0) {
+            if (String(this.applic.state).trim().replace(/[^a-zA-Z ]/g, "").length == 0) {
+                error.push('STATE_INVALID');
+            }
+        } else {
             error.push('STATE_REQ');
         }
-        if (this.applic.country && String(this.applic.country).trim().length == 0) {
+        if (this.applic.country && String(this.applic.country).trim().length > 0) {
+            if (String(this.applic.country).trim().replace(/[^a-zA-Z ]/g, "").length == 0) {
+                error.push('COUNTRY_INVALID');
+            }
+        } else {
             error.push('COUNTRY_REQ');
         }
         if (this.applic.experience) {
@@ -112,20 +132,24 @@ app.post('/uploadSheet', (req, res, next) => {
         // converting the sheet to json
         for (let index = 0; index < applications.length; index++) {
             let stat = { id: index, errors: [] };
-            applications[index].email = applications[index].email.toLowerCase().trim();
-            if (applications[index].email.length == 0) {
-                stat.errors.push('MAIL_REQ');
-                continue;
-            }
-            if (valid_emails.findIndex(ob => ob == applications[index].email) >= 0) {
-                stat.errors.push('DUP_MAIL');
-            } else {
-                let exp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!exp.test(applications[index].email)) {
-                    stat.errors.push('INVALID_MAIL');
+            if (applications[index].email) {
+                applications[index].email = applications[index].email.toLowerCase().trim();
+                if (applications[index].email.length == 0) {
+                    stat.errors.push('MAIL_REQ');
                 } else {
-                    valid_emails.push(applications[index].email);
+                    if (valid_emails.findIndex(ob => ob == applications[index].email) >= 0) {
+                        stat.errors.push('DUP_MAIL');
+                    } else {
+                        let exp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!exp.test(applications[index].email)) {
+                            stat.errors.push('INVALID_MAIL');
+                        } else {
+                            valid_emails.push(applications[index].email);
+                        }
+                    }
                 }
+            } else {
+                stat.errors.push('MAIL_REQ');
             }
             status.push(stat);
         }
@@ -143,12 +167,11 @@ app.post('/uploadSheet', (req, res, next) => {
                     // filtering valid data thst needs to be saved
                     const all_mails = [];
                     const data_to_save = applications.filter((elem, index) => {
+                        const appl_obj = new Application(elem);
+                        const appl_errors = appl_obj.validateApplicaton();
+                        status[index].errors.push(...appl_errors);
                         if (data.findIndex(ob => ob.email == elem.email) < 0 && all_mails.findIndex(ob => ob === elem.email) < 0 && valid_emails.findIndex(ob => ob == elem.email) >= 0) {
-                            const appl_obj = new Application(elem);
-                            const appl_errors = appl_obj.validateApplicaton();
-                            if (appl_errors.length != 0) {
-                                status[index].errors.push(...appl_errors);
-                            } else {
+                            if (status[index].errors.length === 0) {
                                 all_mails.push(elem.email);
                                 return true;
                             }

@@ -14,12 +14,11 @@ export class ViewComponent implements OnInit {
   erroMsg: string;
   displayedColumns: string[] = ['username', 'email', 'address', 'city', 'state', 'country', 'experience', 'salary'];
 
-  constructor(private intermediate: IntermediateService) { }
+  constructor(public intermediate: IntermediateService) { }
 
   getApplications(page) {
     this.intermediate.loadingAnimation = true;
     this.intermediate.getApplications(page + 1).subscribe((data: any) => {
-      this.intermediate.loadingAnimation = false;
       if (!data.status) {
         this.erroMsg = 'Something went wrong, Please try again after some time';
       } else {
@@ -36,6 +35,7 @@ export class ViewComponent implements OnInit {
           this.erroMsg = 'No aplications Found';
         }
       }
+      this.intermediate.loadingAnimation = false;
     });
   }
 
@@ -51,6 +51,7 @@ export class ViewComponent implements OnInit {
   ngOnInit() {
     this.currentPage = 0;
     this.totalAplications = 0;
+    this.intermediate.loadingAnimation = false;
     this.getApplications(this.currentPage);
   }
 
